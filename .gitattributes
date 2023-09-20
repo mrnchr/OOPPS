@@ -1,3 +1,5 @@
+eol=crlf
+
 ## Unity ##
 
 *.cs diff=csharp text
