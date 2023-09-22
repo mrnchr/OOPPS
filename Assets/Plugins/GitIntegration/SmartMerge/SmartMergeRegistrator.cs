@@ -23,7 +23,7 @@ namespace GitIntegration
           $"config merge.unityyamlmerge.driver \"\\\"{unityYamlMergePath}\\\" merge -h -p --force --fallback none %O %B %A %A\"");
         Utils.ExecuteGitWithParams("config merge.unityyamlmerge.recursive binary");
         EditorPrefs.SetString(_smartMergeRegistratorEditorPrefsKey, _versionKey);
-        Debug.Log($"Succesfuly registered UnityYAMLMerge with path {unityYamlMergePath}");
+        Debug.Log($"Successfully registered UnityYAMLMerge with path {unityYamlMergePath}");
       }
       catch (Exception e)
       {
@@ -35,7 +35,7 @@ namespace GitIntegration
     private static void SmartMergeUnRegister()
     {
       Utils.ExecuteGitWithParams("config --remove-section merge.unityyamlmerge");
-      Debug.Log($"Succesfuly unregistered UnityYAMLMerge");
+      Debug.Log($"Successfully unregistered UnityYAMLMerge");
     }
 
     //Unity calls the static constructor when the engine opens
