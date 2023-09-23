@@ -6,28 +6,29 @@ namespace OOPPS
     {
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private Rigidbody _rb;
-        [SerializeField] private Hook _hook;
         
         public void SetVelocity(Vector3 velocity)
         {
             _rb.velocity = velocity;
         }
 
-        public override void Hook()
+        public override void MakeHook(Hook hook)
         {
             IsHooked = true;
+            PreviousHook = hook;
             TurnOnGravity();
         }
 
         public void TurnOnGravity()
         {
             _rb.useGravity = true;
+            _rb.drag = 2;
+            _rb.velocity = Vector3.zero;
         }
 
         public override void Unhook()
         {
             IsHooked = false;
-            _hook.UnhookForcefully();
         }
 
         private void OnCollisionEnter(Collision other)

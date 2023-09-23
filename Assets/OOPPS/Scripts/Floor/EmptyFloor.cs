@@ -9,7 +9,7 @@ namespace OOPPS
             IsHooked = true;
         }
 
-        public override void Hook()
+        public override void MakeHook(Hook hook)
         {
         }
 
