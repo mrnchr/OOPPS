@@ -8,7 +8,6 @@ namespace OOPPS
         public float MoveSpeed;
         public float AccelerationTime;
 
-        [SerializeField] private Hook _hook;
         [SerializeField] private Rigidbody _rb;
         [SerializeField] private Controller _controller;
 
@@ -26,10 +25,10 @@ namespace OOPPS
                 StartCoroutine(Accelerate(velocity));
             }
 
-            if (direction == 1 && transform.rotation.x == 1)
+            if (direction == 1 && transform.rotation.y == 1)
                 transform.rotation = new Quaternion(0, 0, 0, 1);
             else if (direction == -1 && transform.rotation.x == 0)
-                transform.rotation = new Quaternion(1, 0, 0, 0);
+                transform.rotation = new Quaternion(0, 1, 0, 0);
         }
 
         private IEnumerator Accelerate(Vector3 endVelocity)

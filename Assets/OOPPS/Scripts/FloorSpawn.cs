@@ -20,7 +20,7 @@ namespace OOPPS
         {
             while (true)
             {
-                var floor = Instantiate(Floor, GetPosition(), Quaternion.identity);
+                Floor floor = Instantiate(Floor, GetPosition(), Quaternion.identity);
                 floor.SetVelocity(Vector3.down * Random.Range(MinSpeed, MaxSpeed));
                 yield return new WaitForSeconds(Random.Range(MinSpawnTime, MaxSpawnTime));
             }

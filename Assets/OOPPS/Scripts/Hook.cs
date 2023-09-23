@@ -1,16 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace OOPPS
 {
     public class Hook : MonoBehaviour
     {
-        public Floor Floor => _floor;
-        public Floor NextFloor => _nextFloor;
+        public BaseFloor Floor => _floor;
+        public BaseFloor NextFloor => _nextFloor;
         public LayerMask FloorLayer;
-        
-        [SerializeField] private Floor _floor;
-        private Floor _nextFloor;
+
+        [SerializeField] private BaseFloor _floor;
+        private BaseFloor _nextFloor;
         private LevelMover _level;
+
+        public void UnhookForcefully()
+        {
+            if (!_nextFloor) return;
+            _nextFloor.Unhook();
+            _nextFloor = null;
+        }
 
         private void Awake()
         {
@@ -19,11 +27,24 @@ namespace OOPPS
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == FloorLayer.GetLayerIndex())
+            if (!_nextFloor && IsHookedFloor() && IsFloor(other.gameObject))
             {
-                _nextFloor = other.GetComponent<Floor>();
+                _nextFloor = other.GetComponent<BaseFloor>();
+                _nextFloor.Hook();
                 _level.Move(_nextFloor.transform.position.y);
             }
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (_nextFloor && IsHookedFloor() && IsFloor(other.gameObject))
+            {
+                UnhookForcefully();
+                _level.Move(Floor.transform.position.y);
+            }
+        }
+
+        private bool IsHookedFloor() => _floor.IsHooked;
+        private bool IsFloor(GameObject obj) => obj.layer == FloorLayer.GetLayerIndex();
     }
 }

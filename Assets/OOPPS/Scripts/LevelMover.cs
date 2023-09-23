@@ -16,7 +16,7 @@ namespace OOPPS
         private IEnumerator MoveLinear(float yPos)
         {
             float delta = yPos - transform.position.y;
-            while (Mathf.Abs(yPos - transform.position.y) > 0.01)
+            while (Mathf.Sign(delta) * (yPos - transform.position.y) > 0)
             {
                 transform.position += Vector3.up * delta / MoveTime * Time.deltaTime;
                 yield return null;

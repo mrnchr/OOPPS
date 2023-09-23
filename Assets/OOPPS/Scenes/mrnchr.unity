@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Floor: {fileID: 5443209269148238717, guid: bf70ccb25af55cc4ab8db230332bf094, type: 3}
-  MinSpeed: 0
+  MinSpeed: 1
   MaxSpeed: 5
   MinSpawnTime: 2
   MaxSpawnTime: 3
@@ -920,6 +920,7 @@ GameObject:
   - component: {fileID: 1422861500}
   - component: {fileID: 1422861496}
   - component: {fileID: 1422861501}
+  - component: {fileID: 1422861502}
   m_Layer: 0
   m_Name: Turtle
   m_TagString: Untagged
@@ -974,9 +975,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 7
   AccelerationTime: 3
-  _hook: {fileID: 4314005367053720038}
   _rb: {fileID: 1422861496}
   _controller: {fileID: 1020659567}
+--- !u!114 &1422861502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422861495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073b14c12d5b49939e50a9fe639d662e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1526445066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,4 +1306,5 @@ MonoBehaviour:
   FloorLayer:
     serializedVersion: 2
     m_Bits: 64
-  _floor: {fileID: 0}
+  IsEmpty: 1
+  _floor: {fileID: 1422861502}
