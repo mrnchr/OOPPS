@@ -25,10 +25,12 @@ namespace OOPPS
                 StartCoroutine(Accelerate(velocity));
             }
 
-            if (direction == 1 && transform.rotation.y == 1)
+
+            //return later, now it interfer in rotation code
+        /*    if (direction == 1 && transform.rotation.y == 1)
                 transform.rotation = new Quaternion(0, 0, 0, 1);
             else if (direction == -1 && transform.rotation.x == 0)
-                transform.rotation = new Quaternion(0, 1, 0, 0);
+                transform.rotation = new Quaternion(0, 1, 0, 0);*/
         }
 
         private IEnumerator Accelerate(Vector3 endVelocity)
