@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7928094530728977481}
   - component: {fileID: 7648635077744884657}
   m_Layer: 5
-  m_Name: LeftButton
+  m_Name: MoveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,11 +9,10 @@ namespace OOPPS
         public float AccelerationTime;
 
         [SerializeField] private Rigidbody _rb;
-        [SerializeField] private Controller _controller;
+        [SerializeField] private InputController _controller;
 
         private void OnEnable()
         {
-            _controller.OnMove += Move;
         }
 
         private void Move(int direction)
