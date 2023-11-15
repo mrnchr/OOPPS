@@ -5,7 +5,7 @@ namespace OOPPS
 {
     public class FloorSpawn : MonoBehaviour
     {
-        public Floor2 Floor2;
+        public FloorStates Floor;
         public float MinSpeed;
         public float MaxSpeed;
         public float MinSpawnTime;
@@ -20,7 +20,7 @@ namespace OOPPS
         {
             while (true)
             {
-                Floor2 floor = Instantiate(Floor2, GetPosition(), Quaternion.identity);
+                FloorStates floor = Instantiate(Floor, GetPosition(), Quaternion.identity);
                 floor.SetVelocity(Vector3.down * Random.Range(MinSpeed, MaxSpeed));
                 yield return new WaitForSeconds(Random.Range(MinSpawnTime, MaxSpawnTime));
             }
