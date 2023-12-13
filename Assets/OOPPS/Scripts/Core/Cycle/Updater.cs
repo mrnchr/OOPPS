@@ -6,14 +6,14 @@ namespace OOPPS.Core
     public class Updater : MonoBehaviour
     {
         private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
-        
+
         public Updater Add(IUpdatable updatable)
         {
             _updatables.Add(updatable);
             return this;
         }
 
-        public Updater Add(List<IUpdatable> updatables)
+        public Updater Add(IEnumerable<IUpdatable> updatables)
         {
             _updatables.AddRange(updatables);
             return this;

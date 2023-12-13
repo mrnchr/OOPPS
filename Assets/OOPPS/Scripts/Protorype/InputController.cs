@@ -1,6 +1,6 @@
 ﻿using System;
+using OOPPS.Core;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace OOPPS
 {
@@ -48,14 +48,6 @@ namespace OOPPS
         }
 
         private void SetDirection(int direction) => _data.Direction += direction;
-    }
-
-    public interface IInputController<out TData> where TData : IInputData
-    {
-        public TData Data { get; }
-        public event Action<TData> OnInputHandled;
-        public void Handle();
-        public void Clear();
     }
 
     public interface IInputData
