@@ -30,5 +30,6 @@ namespace OOPPS.Core
             foreach (IUpdatable updatable in _updatables)
                 updatable.Update();
         }
+      
     }
 }

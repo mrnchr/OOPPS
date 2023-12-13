@@ -1,19 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
-namespace OOPPS
+namespace OOPPS.TowerBuild
 {
     public class FloorSpawn : MonoBehaviour
     {
+        public event Action<FloorStates> IsNewFloorSpawned;
+
         public FloorStates Floor;
         public float MinSpeed;
         public float MaxSpeed;
         public float MinSpawnTime;
         public float MaxSpawnTime;
 
-        private void Start()
+
+        public void StartSpawn()
         {
             StartCoroutine(Spawn());
+        }
+
+        public void StopSpawn()
+        {
+            StopAllCoroutines();
         }
 
         private IEnumerator Spawn()
@@ -21,8 +30,9 @@ namespace OOPPS
             while (true)
             {
                 FloorStates floor = Instantiate(Floor, GetPosition(), Quaternion.identity);
-                floor.SetVelocity(Vector3.down * Random.Range(MinSpeed, MaxSpeed));
-                yield return new WaitForSeconds(Random.Range(MinSpawnTime, MaxSpawnTime));
+                floor.SetVelocity(Vector3.down * UnityEngine.Random.Range(MinSpeed, MaxSpeed));
+                IsNewFloorSpawned?.Invoke(floor);
+                yield return new WaitForSeconds(UnityEngine.Random.Range(MinSpawnTime, MaxSpawnTime));
             }
         }
 
@@ -30,7 +40,7 @@ namespace OOPPS
         {
             Vector3 pos = transform.position;
             Vector3 scale = transform.localScale;
-            return new Vector3(Random.Range(pos.x - scale.x / 2, pos.x + scale.x / 2), pos.y, pos.z);
+            return new Vector3(UnityEngine.Random.Range(pos.x - scale.x / 2, pos.x + scale.x / 2), pos.y, pos.z);
         }
     }
 }

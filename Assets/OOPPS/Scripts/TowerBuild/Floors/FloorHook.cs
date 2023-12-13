@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace OOPPS
+using System;
+
+namespace OOPPS.TowerBuild
 {
     public class FloorHook : MonoBehaviour
     {
+        public event Action<FloorStates> OnHookNewFloor;
+
         private void OnTriggerEnter(Collider newFloor)
         {
             if (newFloor.GetComponent<FloorStates>())
             {
-                FloorContainer.OnFloorCollide?.Invoke(newFloor.GetComponent<FloorStates>());
+                OnHookNewFloor?.Invoke(newFloor.GetComponent<FloorStates>());
             }
         }
     }

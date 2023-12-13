@@ -3,32 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace OOPPS
+namespace OOPPS.TowerBuild
 {
-    public class FloorsRotationController : MonoBehaviour
+    public class FloorsOffsetController : MonoBehaviour
     {
+        public Action<bool> OnOwerwaite;
+
         private float _sumSideOffset { get; set; }
 
         [Header("Dependencies")]
-        [SerializeField]
-        private GameObject _rotObject;
+        [SerializeField] private GameObject _rotObject;
 
-        [SerializeField]
-        private float _criticalOffset;
+        [SerializeField] private float _criticalOffset;
 
-        [SerializeField]
-        private LevelMover _levelMover;
+        [SerializeField] private LevelMover _levelMover;
 
 
         [Header("Values")]
-        [SerializeField]
-        private float _amplitudeTime;
+        [SerializeField] private float _amplitudeTime;
+
         // Кол-во этажей, через которое начнётся смещатся центр поворота
-        [SerializeField] 
-        private int _upShiftToRot;
+        [SerializeField] private int _upShiftToRot;
+
         // Кол-во этажей, через которое начнётся смещатся камера
-        [SerializeField]
-        private int _upShiftToCamMove;
+        [SerializeField] private int _upShiftToCamMove;
 
 
         private void Start()
@@ -38,45 +36,51 @@ namespace OOPPS
         }
 
 
-        public void AddNewFloorOffset(List<FloorStates> floorsList)
+        public bool TryAddNewFloorOffset(List<FloorStates> floorsList)
         {
-            AddOffset(floorsList[floorsList.Count - 2]._offsetByNextFloor);
+            AddOffset(floorsList[floorsList.Count - 2]._offsetByNextFloor, floorsList.Count);
 
             if (MathF.Abs(_sumSideOffset) > _criticalOffset)
             {
-                FloorContainer.OnOwerwaite?.Invoke();
+                OnOwerwaite?.Invoke(true);
 
-                return;
+                return false;
             }
 
-            if (floorsList.Count > _upShiftToCamMove)
+
+            if (floorsList.Count > _upShiftToRot)
+            {
+                ShiftBaseFloor(floorsList);
+            }
+            else if (floorsList.Count > _upShiftToCamMove)
             {
                 _levelMover.Move(floorsList[floorsList.Count - 2].transform.position.y);
             }
 
+            return true;
+        }
+        public void RemoveLastFloorOffset(List<FloorStates> floorsList)
+        {
+            AddOffset(-floorsList[floorsList.Count - 2]._offsetByNextFloor, floorsList.Count);
+
+
             if (floorsList.Count > _upShiftToRot)
             {
                 ShiftBaseFloor(floorsList);
             }
-        }
-        public void RemoveLastFloorOffset(List<FloorStates> floorsList)
-        {
-            AddOffset(-floorsList[floorsList.Count - 2]._offsetByNextFloor);
-
-
-            if (floorsList.Count > _upShiftToCamMove)
+            else if (floorsList.Count > _upShiftToCamMove)
             {
                 _levelMover.Move(floorsList[floorsList.Count - 3].transform.position.y);
             }
 
-            if (floorsList.Count > _upShiftToRot)
-            {
-                ShiftBaseFloor(floorsList);
-            }
         }
-        public void AddOffset(float newOffset)
+        public void AddOffset(float newOffset, int allFloorsCnt)
         {
-            _sumSideOffset += newOffset;
+            //   x = (x1m1 + x2m2 + ... + xnmn)/ (m1 + m2 + ...mn)
+            
+            _sumSideOffset = (_sumSideOffset* (allFloorsCnt-1) + newOffset) / (allFloorsCnt);
+            Debug.Log(_sumSideOffset);
+            //_sumSideOffset += newOffset;
         }
 
 
@@ -90,6 +94,12 @@ namespace OOPPS
             floorsList[0].ShiftJointAnchor(floorsList[floorsList.Count - _upShiftToRot]._rb);
 
             _rotObject.transform.position = new Vector3(_rotObject.transform.position.x, newFloorPos.y, _rotObject.transform.position.z);
+
+            if (floorsList.Count > _upShiftToCamMove)
+            {
+                _levelMover.Move(_rotObject.transform.position.y + 3);
+            }
+
         }
 
 
@@ -136,7 +146,7 @@ namespace OOPPS
         {
             float crntSummOffset = isPositivRot ? Mathf.Abs(_sumSideOffset) : Mathf.Abs(_sumSideOffset) * (-1);
 
-            _rotObject.transform.Rotate(_rotObject.transform.forward, crntSummOffset / _amplitudeTime * 50f * Time.deltaTime);
+            _rotObject.transform.Rotate(_rotObject.transform.forward, crntSummOffset / _amplitudeTime * 1000f * Time.deltaTime);
 
             return crntSummOffset / _amplitudeTime * 50 * Time.deltaTime;
         }

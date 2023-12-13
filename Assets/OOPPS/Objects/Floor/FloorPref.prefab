@@ -713,6 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hook: {fileID: 2375020285517858876}
+  _hookComponent: {fileID: 795937364616316894}
   _boarders: {fileID: 5975924838153276434}
   _roofSize: 1
 --- !u!145 &835682671353756016
