@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace OOPPS.TowerBuild
@@ -8,16 +9,54 @@ namespace OOPPS.TowerBuild
     {
         public event Action<FloorStates> IsNewFloorSpawned;
 
-        public FloorStates Floor;
-        public float MinSpeed;
-        public float MaxSpeed;
-        public float MinSpawnTime;
-        public float MaxSpawnTime;
+        [SerializeField] private FloorStates _floorPref;
+        [SerializeField] private float MinSpeed;
+        [SerializeField] private float MaxSpeed;
+        [SerializeField] private float MinSpawnTime;
+        [SerializeField] private float MaxSpawnTime;
+
+
+  /*      public int _initCount;
+        private List<FloorStates> _floorPool = new();*/
+        [SerializeField] private Transform _floorsContainer;
+
+  /*      public void InitPool(int count)
+        {
+            // _initCount = count;
+
+            _initCount = 3;
+
+            for (int i = 0; i < _initCount; i++)
+            {
+                var newFloor = Instantiate(_floorPref, _floorsContainer);
+
+                newFloor.gameObject.SetActive(false);
+                _floorPool.Add(newFloor);
+            }
+        }
+
+        private FloorStates GetFloor()
+        {
+            var crntCount = _floorPool.Count;
+            for (int i = 0; i < crntCount; i++)
+            {
+                if (!_floorPool[i].gameObject.activeInHierarchy)
+                {
+                    return _floorPool[i];
+                }
+            }
+            
+            var newFloor = Instantiate(_floorPref, _floorsContainer);
+            _floorPool.Add(newFloor);
+
+            return newFloor;
+        }
+*/
 
 
         public void StartSpawn()
         {
-            StartCoroutine(Spawn());
+            StartCoroutine( Spawn() );
         }
 
         public void StopSpawn()
@@ -29,7 +68,8 @@ namespace OOPPS.TowerBuild
         {
             while (true)
             {
-                FloorStates floor = Instantiate(Floor, GetPosition(), Quaternion.identity);
+                var floor = Instantiate(_floorPref, GetPosition(), Quaternion.identity, _floorsContainer);
+
                 floor.SetVelocity(Vector3.down * UnityEngine.Random.Range(MinSpeed, MaxSpeed));
                 IsNewFloorSpawned?.Invoke(floor);
                 yield return new WaitForSeconds(UnityEngine.Random.Range(MinSpawnTime, MaxSpawnTime));

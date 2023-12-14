@@ -46,6 +46,7 @@ namespace OOPPS.TowerBuild
             _crntFloorCount = 0;
             _maxFloorCount = maxFlCnt;
             _floorContainer.InitBuilding();
+
         }
 
 

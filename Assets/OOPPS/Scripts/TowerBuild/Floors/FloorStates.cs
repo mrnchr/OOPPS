@@ -17,7 +17,6 @@ namespace OOPPS.TowerBuild
 
         [SerializeField] private GameObject _hook;
         public FloorHook _hookComponent;
-        // public bool IsHooked { get => (_joint.connectedBody != null && !_hook.activeSelf)|| (_joint.connectedBody == null && _hook.activeSelf); }
         private bool _isHooked;
         public bool IsHooked { get => _isHooked; set => _isHooked = value; }
 
@@ -48,13 +47,15 @@ namespace OOPPS.TowerBuild
         }
         private void DestroyObj()
         {
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
+           // this.gameObject.SetActive(false);
         }
 
         public void SetHookListener(Action<FloorStates> TryAddFloorEvent)
         {
             _hookComponent.OnHookNewFloor += TryAddFloorEvent;
         }
+
         public void RemoveHookListener(Action<FloorStates> TryAddFloorEvent)
         {
             _hookComponent.OnHookNewFloor -= TryAddFloorEvent;
@@ -158,7 +159,10 @@ namespace OOPPS.TowerBuild
             EnablePhys();
             DestroyJoint();
             DisableBoarders();
+
+            Invoke("DestroyObj", 2f);
             Destroy(this);
+
         }
 
     }

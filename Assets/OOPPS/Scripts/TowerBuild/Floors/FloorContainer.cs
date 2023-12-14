@@ -5,7 +5,7 @@ using System;
 
 namespace OOPPS.TowerBuild
 {
-    public class FloorContainer : MonoBehaviour
+    public class FloorContainer : IListener
     {
         public event Action<FloorStates> OnFloorCollide;
 
@@ -15,22 +15,27 @@ namespace OOPPS.TowerBuild
         public event Action<FloorStates> OnFloorGotGround;
 
 
-        [SerializeField] private FloorsOffsetController _rotController;
-        [SerializeField] private FloorStates _firstFloor;
+        private FloorsOffsetController _offsetController;
+        private FloorStates _firstFloor;
 
         private List<FloorStates> _floorsList = new List<FloorStates>();
 
+        public FloorContainer(FloorsOffsetController floorOffset, FloorStates firstFloor)
+        {
+            _offsetController = floorOffset;
+            _firstFloor = firstFloor;
+        }
 
-        private void OnEnable()
+        public void OnEnable()
         {
             OnFloorCollide += TryToAddFloor;
-            _rotController.OnOwerwaite += RemoveLastFloor;
+            _offsetController.OnOwerwaite += RemoveLastFloor;
             OnFloorGotGround += FloorGotGroundActions;
         }
-        private void OnDisable()
+        public void OnDisable()
         {
             OnFloorCollide -= TryToAddFloor;
-            _rotController.OnOwerwaite -= RemoveLastFloor;
+            _offsetController.OnOwerwaite -= RemoveLastFloor;
             OnFloorGotGround -= FloorGotGroundActions;
         }
 
@@ -39,9 +44,8 @@ namespace OOPPS.TowerBuild
         {
             SetFloorListeners(_firstFloor);
             AddFloor(_firstFloor);
+            _offsetController.StartRotate();
         }
-
-
 
         private void FloorGotGroundActions(FloorStates floor)
         {
@@ -93,7 +97,7 @@ namespace OOPPS.TowerBuild
 
                 _floorsList[_floorsList.Count - 2].DisableHook();
 
-                if (_rotController.TryAddNewFloorOffset(_floorsList))
+                if (_offsetController.TryAddNewFloorOffset(_floorsList))
                 {
                     if (_floorsList.Count > 6)
                     {
@@ -110,7 +114,7 @@ namespace OOPPS.TowerBuild
 
             if (_floorsList.Count > 2)
             {
-                _rotController.RemoveLastFloorOffset(_floorsList);
+                _offsetController.RemoveLastFloorOffset(_floorsList);
 
                 FloorStates removedFloor = _floorsList[_floorsList.Count - 1];
                 _floorsList.Remove(removedFloor);

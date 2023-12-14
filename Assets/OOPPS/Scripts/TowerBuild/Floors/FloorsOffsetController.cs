@@ -5,36 +5,28 @@ using System;
 
 namespace OOPPS.TowerBuild
 {
-    public class FloorsOffsetController : MonoBehaviour
+    public class FloorsOffsetController 
     {
         public Action<bool> OnOwerwaite;
 
-        private float _sumSideOffset { get; set; }
+        private LevelMover _levelMover;
+        private TowerRotation _rotationController;
 
-        [Header("Dependencies")]
-        [SerializeField] private GameObject _rotObject;
+        private float _sumSideOffset;
 
-        [SerializeField] private float _criticalOffset;
+        private float _criticalOffset;
+        private int _upShiftToRot;
+        private int _upShiftToCamMove;
 
-        [SerializeField] private LevelMover _levelMover;
-
-
-        [Header("Values")]
-        [SerializeField] private float _amplitudeTime;
-
-        // Кол-во этажей, через которое начнётся смещатся центр поворота
-        [SerializeField] private int _upShiftToRot;
-
-        // Кол-во этажей, через которое начнётся смещатся камера
-        [SerializeField] private int _upShiftToCamMove;
-
-
-        private void Start()
+        public FloorsOffsetController(TowerRotation towerRotation, BuildingMinigameConfig minigameConfig, LevelMover levelMover)
         {
-            //need to refactor, move to another game controller
-            StartRotate();
-        }
+            _rotationController = towerRotation;
+            _levelMover = levelMover;
 
+            _criticalOffset = minigameConfig.criticalOffset;
+            _upShiftToRot = minigameConfig.upShiftToRot;
+            _upShiftToCamMove = minigameConfig.upShiftToCamMove;
+        }
 
         public bool TryAddNewFloorOffset(List<FloorStates> floorsList)
         {
@@ -59,6 +51,12 @@ namespace OOPPS.TowerBuild
 
             return true;
         }
+
+        internal void StartRotate()
+        {
+            _rotationController.StartRotate();
+        }
+
         public void RemoveLastFloorOffset(List<FloorStates> floorsList)
         {
             AddOffset(-floorsList[floorsList.Count - 2]._offsetByNextFloor, floorsList.Count);
@@ -77,9 +75,10 @@ namespace OOPPS.TowerBuild
         public void AddOffset(float newOffset, int allFloorsCnt)
         {
             //   x = (x1m1 + x2m2 + ... + xnmn)/ (m1 + m2 + ...mn)
-            
-            _sumSideOffset = (_sumSideOffset* (allFloorsCnt-1) + newOffset) / (allFloorsCnt);
-            Debug.Log(_sumSideOffset);
+
+            //возможно неверно работает при ремуве
+            _sumSideOffset = (_sumSideOffset * (allFloorsCnt - 1) + newOffset) / (allFloorsCnt);
+            _rotationController.SetOffset(_sumSideOffset);
             //_sumSideOffset += newOffset;
         }
 
@@ -93,64 +92,14 @@ namespace OOPPS.TowerBuild
             //переназначить прицепку начального джоинта к новому
             floorsList[0].ShiftJointAnchor(floorsList[floorsList.Count - _upShiftToRot]._rb);
 
-            _rotObject.transform.position = new Vector3(_rotObject.transform.position.x, newFloorPos.y, _rotObject.transform.position.z);
+            _rotationController.SetRotObjYPos(newFloorPos.y);
 
             if (floorsList.Count > _upShiftToCamMove)
             {
-                _levelMover.Move(_rotObject.transform.position.y + 3);
+                _levelMover.Move(_rotationController.GetRotObjYPos() + 3);
             }
 
         }
-
-
-
-        public void StartRotate()
-        {
-            StartCoroutine(RotateBaseFloor());
-        }
-        public void StopRotate()
-        {
-            StopAllCoroutines();
-        }
-        IEnumerator RotateBaseFloor()
-        {
-            float tmpDeg = 0f;
-
-            while (tmpDeg < 90f)
-            {
-                tmpDeg += RotateBySide(true);
-                yield return null;
-            }
-
-            tmpDeg = 0f;
-            while (tmpDeg < 180f)
-            {
-                tmpDeg += RotateBySide(false);
-                yield return null;
-            }
-            tmpDeg = 0f;
-            while (tmpDeg < 90f)
-            {
-                tmpDeg += RotateBySide(true);
-                yield return null;
-            }
-
-
-
-            yield return null;
-
-            StartCoroutine(RotateBaseFloor());
-
-        }
-        private float RotateBySide(bool isPositivRot)
-        {
-            float crntSummOffset = isPositivRot ? Mathf.Abs(_sumSideOffset) : Mathf.Abs(_sumSideOffset) * (-1);
-
-            _rotObject.transform.Rotate(_rotObject.transform.forward, crntSummOffset / _amplitudeTime * 1000f * Time.deltaTime);
-
-            return crntSummOffset / _amplitudeTime * 50 * Time.deltaTime;
-        }
-
 
     }
 }

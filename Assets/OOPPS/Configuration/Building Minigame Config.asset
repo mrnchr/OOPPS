@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9700e6aef61f247b196d6339226a5d, type: 3}
   m_Name: Building Minigame Config
   m_EditorClassIdentifier: 
-  maxFloorCount: 50
+  criticalOffset: 2
+  upShiftToRot: 5
+  upShiftToCamMove: 2
+  maxFloorCount: 10
   resMultiplier: 5
   hpCount: 3
