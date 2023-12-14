@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Standard Building
   m_EditorClassIdentifier: 
   Type: 0
-  BuildPrice: 10
-  BuildTime: 10
+  BuildPrice: 100
   Hours: 0
   Minutes: 0
-  Seconds: 10
+  Seconds: 20
   Income: 10
+  BuildTime: 20

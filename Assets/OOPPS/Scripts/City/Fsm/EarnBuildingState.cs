@@ -13,7 +13,6 @@ namespace OOPPS.City.Fsm
         {
             _model.BuildStage = BuildingStage.Earn;
             _view.SetActiveStage(BuildingStage.Earn, true);
-            _model.StartEarnTime = DateTime.Now;
         }
 
         public override void Exit()

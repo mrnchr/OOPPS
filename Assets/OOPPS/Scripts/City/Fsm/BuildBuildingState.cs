@@ -13,7 +13,6 @@ namespace OOPPS.City.Fsm
         {
             _model.BuildStage = BuildingStage.Build;
             _view.SetActiveStage(BuildingStage.Build, true);
-            _model.SetBuildTime();
         }
 
         public override void Exit()

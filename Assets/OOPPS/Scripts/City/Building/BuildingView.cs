@@ -66,7 +66,7 @@ namespace OOPPS.City.Building
 
         public void SetPrice(string text)
         {
-            _money.text = text;
+            _price.text = text;
         }
 
         public void SetTime(string text)

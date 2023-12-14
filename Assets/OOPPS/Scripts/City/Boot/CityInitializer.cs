@@ -3,6 +3,7 @@ using OOPPS.City.Building;
 using OOPPS.City.Fsm;
 using OOPPS.City.Services;
 using OOPPS.Core;
+using OOPPS.Persistence;
 using UnityEngine;
 
 namespace OOPPS.City.Boot
@@ -29,11 +30,12 @@ namespace OOPPS.City.Boot
         {
             var list = _container.Resolve<List<BuildingController>>();
             var city = _container.Resolve<ICityService>();
+            var persistence = _container.Resolve<DataPersistenceManager>();
 
             foreach (BuildingView view in _buildings)
             {
                 var machine = new BuildingStateMachine();
-                var instance = new BuildingController(view, machine, city);
+                var instance = new BuildingController(view, machine, city, persistence);
                 machine.AddState(new PlaceBuildingState(BuildingStage.Place, instance));
                 machine.AddState(new BuildBuildingState(BuildingStage.Build, instance));
                 machine.AddState(new EarnBuildingState(BuildingStage.Earn, instance));

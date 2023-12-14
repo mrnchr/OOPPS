@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Developers/mrnchr/Menu.unity
-    guid: 15c7b5d3192658449bdff4ef6fc5529d
+    path: Assets/OOPPS/Scenes/Boot.unity
+    guid: c644295f6fe7c874d86c757e1b878473
   - enabled: 1
-    path: Assets/OOPPS/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/OOPPS/Scenes/City.unity
+    guid: 8ee51818c1e4f36429e00678e0819f84
+  - enabled: 1
+    path: Assets/OOPPS/Scenes/Building.unity
+    guid: 344424be9327dfe4d9a8c595e71e16f1
   m_configObjects: {}

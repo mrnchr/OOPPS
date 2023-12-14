@@ -3,24 +3,31 @@ using OOPPS.City.Fsm;
 using OOPPS.City.Services;
 using OOPPS.Core;
 using OOPPS.Core.Mvc;
+using OOPPS.Persistence;
+using UnityEngine;
 
 namespace OOPPS.City.Building
 {
     public class BuildingController : IController, IUpdatable
     {
         private readonly BuildingView _view;
-        private readonly BuildingStateMachine _machine;
+        private readonly IBuildingStateMachine _machine;
         private readonly ICityService _cityService;
+        private readonly DataPersistenceManager _persistence;
         private readonly BuildingModel _model;
 
         public BuildingView View => _view;
         public BuildingModel Model => _model;
 
-        public BuildingController(BuildingView view, BuildingStateMachine machine, ICityService cityService)
+        public BuildingController(BuildingView view, 
+            IBuildingStateMachine machine, 
+            ICityService cityService,
+            DataPersistenceManager persistence)
         {
             _view = view;
             _machine = machine;
             _cityService = cityService;
+            _persistence = persistence;
             _model = new BuildingModel();
 
             ConfigureModel();
@@ -34,7 +41,11 @@ namespace OOPPS.City.Building
         public void Initialize()
         {
             _view.Hide();
-            _machine.ChangeState(BuildingStage.Place);
+        }
+
+        public void OnLoad()
+        {
+            _machine.ChangeState(_model.BuildStage);
         }
 
         public void Update()
@@ -63,16 +74,21 @@ namespace OOPPS.City.Building
         public void CollectMoney()
         {
             _cityService.CollectMoney(this);
+            _persistence.Save();
         }
 
         public void StartBuild()
         {
             _machine.ChangeState(BuildingStage.Build);
+            _model.SetBuildTime();
+            _persistence.Save();
         }
 
         public void StartEarn()
         {
             _machine.ChangeState(BuildingStage.Earn);
+            _model.StartEarnTime = _model.EndBuildTime;
+            _persistence.Save();
         }
 
         private void ConfigureModel()

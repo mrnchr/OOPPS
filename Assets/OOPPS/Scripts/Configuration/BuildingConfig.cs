@@ -8,11 +8,13 @@ namespace OOPPS
     {
         public BuildingType Type;
         public float BuildPrice;
-        public float BuildTime;
         public float Hours;
         public float Minutes;
         public float Seconds;
         public float Income;
+        
+        [Header("ReadOnly")]
+        public float BuildTime;
 
         private void OnValidate()
         {

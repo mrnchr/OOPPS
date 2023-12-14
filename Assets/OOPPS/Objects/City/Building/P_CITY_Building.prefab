@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4393118706690535412}
   - component: {fileID: 9145592046080990718}
   - component: {fileID: 2903256990412274731}
+  - component: {fileID: 8365169683746108551}
+  - component: {fileID: 5291942063115556895}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -76,6 +78,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!65 &8365169683746108551
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295317775391523049}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8, y: 8, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5291942063115556895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295317775391523049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22bb1cc017bd4fd0b87cbc71e1f2f949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2863623717921138985
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,13 +253,13 @@ MonoBehaviour:
   - {fileID: 4903337939996232415}
   - {fileID: 2785024356228747560}
   _placeInteraction: {fileID: 1552490447255164214}
-  _earnInteraction: {fileID: 800856743136267843}
-  _price: {fileID: 0}
+  _earnInteraction: {fileID: 5291942063115556895}
+  _price: {fileID: 9135173888058325177}
   _time: {fileID: 4454515888537286782}
   _money: {fileID: 8432741760442195883}
   _model:
-    BuildStage: 0
     Config: {fileID: 0}
+    BuildStage: 0
 --- !u!1 &3256833904214183406
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,8 +617,6 @@ GameObject:
   - component: {fileID: 8525232441636648920}
   - component: {fileID: 7907200658113303815}
   - component: {fileID: 3602235098265868780}
-  - component: {fileID: 616298880684497066}
-  - component: {fileID: 800856743136267843}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -664,31 +689,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &616298880684497066
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4381961019903025736}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &800856743136267843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4381961019903025736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bb1cc017bd4fd0b87cbc71e1f2f949, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4474100210588758471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,12 +1093,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5
+  m_fontSize: 3.55
   m_fontSizeBase: 5
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 3
+  m_fontSizeMax: 5
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

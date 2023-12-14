@@ -9,6 +9,7 @@ namespace OOPPS.City
         [SerializeField] private float _woods;
         [SerializeField] private float _coins;
         [SerializeField] private float _diamonds;
+        [SerializeField] private float _energy;
 
         public float Woods
         {
@@ -28,11 +29,18 @@ namespace OOPPS.City
             set => _diamonds = value;
         }
 
+        public float Energy
+        {
+            get => _energy;
+            set => _energy = value;
+        }
+
         public void Copy(PlayingResources from)
         {
             _woods = from.Woods;
             _coins = from.Coins;
             _diamonds = from.Diamonds;
+            _energy = from.Energy;
         }
     }
 }

@@ -27,6 +27,16 @@ namespace OOPPS.City.Fsm
             _current.Enter();
         }
 
+        public void SetState(BuildingStage id)
+        {
+            SetState(_states.Find(x => x.Id == id));
+        }
+
+        public void SetState(IBuildingState state)
+        {
+            _current = state;
+        }
+
         public void Remove(BuildingStage id)
         {
             Remove(_states.Find(x => x.Id == id));
