@@ -44,7 +44,6 @@ namespace OOPPS.TowerBuild
         {
             SetFloorListeners(_firstFloor);
             AddFloor(_firstFloor);
-            _offsetController.StartRotate();
         }
 
         private void FloorGotGroundActions(FloorStates floor)

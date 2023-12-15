@@ -9,7 +9,7 @@ namespace OOPPS.TowerBuild
     {
         public event Action<FloorStates> IsNewFloorSpawned;
 
-        [SerializeField] private FloorStates _floorPref;
+        [SerializeField] private FloorStates[] _floorPref;
         [SerializeField] private float MinSpeed;
         [SerializeField] private float MaxSpeed;
         [SerializeField] private float MinSpawnTime;
@@ -68,7 +68,7 @@ namespace OOPPS.TowerBuild
         {
             while (true)
             {
-                var floor = Instantiate(_floorPref, GetPosition(), Quaternion.identity, _floorsContainer);
+                var floor = Instantiate(_floorPref[UnityEngine.Random.Range(0, _floorPref.Length)], GetPosition(), Quaternion.identity, _floorsContainer);
 
                 floor.SetVelocity(Vector3.down * UnityEngine.Random.Range(MinSpeed, MaxSpeed));
                 IsNewFloorSpawned?.Invoke(floor);

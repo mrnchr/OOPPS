@@ -15,11 +15,11 @@ namespace OOPPS.TowerBuild
 
         [SerializeField] private Image _hpImgPref;
         [SerializeField] private GameObject _hpImgContainer;
-        private List<Image> _imagesList=new();
+        private List<Image> _imagesList = new();
 
         [SerializeField] private Sprite _enableHpSprite;
         [SerializeField] private Sprite _disableHpSprite;
-        
+
 
         public void InitGameScreen(int initHpCount, int allFloorCnt)
         {
@@ -86,15 +86,14 @@ namespace OOPPS.TowerBuild
             for (int i = 0; i < _imagesList.Count; i++)
             {
                 _imagesList[i].sprite = _disableHpSprite;
+                _imagesList[i].color = new Color(1f, 1f, 1f, 0.6156863f);
                 if (i + 1 <= hpValue)
                 {
                     _imagesList[i].sprite = _enableHpSprite;
+                    _imagesList[i].color = new Color(1f, 1f, 1f, 0.9156863f);
                 }
             }
+
         }
-
-
-
-
     }
 }

@@ -40,6 +40,10 @@ namespace OOPPS.TowerBuild
             }
 
 
+
+            if (floorsList.Count == _upShiftToRot)
+            { _rotationController.StartRotate(); }
+
             if (floorsList.Count > _upShiftToRot)
             {
                 ShiftBaseFloor(floorsList);
@@ -50,11 +54,6 @@ namespace OOPPS.TowerBuild
             }
 
             return true;
-        }
-
-        internal void StartRotate()
-        {
-            _rotationController.StartRotate();
         }
 
         public void RemoveLastFloorOffset(List<FloorStates> floorsList)

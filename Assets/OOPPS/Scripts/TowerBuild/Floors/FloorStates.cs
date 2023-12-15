@@ -34,6 +34,8 @@ namespace OOPPS.TowerBuild
             _rb = GetComponent<Rigidbody>();
             _initMas = _rb.mass;
             ResetJoint();
+
+            _rb.ResetCenterOfMass();
         }
 
         public void GroundCheck()
@@ -68,7 +70,13 @@ namespace OOPPS.TowerBuild
         }
         public void DisableHook()
         {
-            _hook.SetActive(false);
+            //!! выбрасывался missing reference
+
+            if (_hook != null)
+            {
+                _hook.SetActive(false);
+            }
+        
         }
         private void DisableBoarders()
         {

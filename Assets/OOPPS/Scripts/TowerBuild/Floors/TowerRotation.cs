@@ -9,12 +9,14 @@ namespace OOPPS.TowerBuild
     {
         private float _amplitudeTime = 5f;
         [SerializeField] private GameObject _rotObject;
+        [SerializeField] private TurtleView model;
 
         private float _offset;
 
         public void StartRotate()
         {
             StartCoroutine(RotateBaseFloor());
+            model.DisableModel();
         }
         public void StopRotate()
         {
