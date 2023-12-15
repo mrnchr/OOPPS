@@ -1,6 +1,7 @@
 ﻿using OOPPS.Core;
 using System.Collections.Generic;
 using UnityEngine;
+using OOPPS.Persistence;
 
 namespace OOPPS.TowerBuild
 {
@@ -32,10 +33,14 @@ namespace OOPPS.TowerBuild
 
         [Header("Other")]
         [SerializeField] private FloorStates _firstFloor;
+        [SerializeField] private BuildingPersistence _buildingPersistence;
+        [SerializeField] private DataPersistenceManager _dataPersistenceManager;
 
 
         public override void InstallBindings()
         {
+            var _resourcesController = new BuildingResourcesController();
+
             var moveCtrl = new TurtleMovementController(_turtle, _back, _forward, _config, _boarders);
             var animCtrl = new TurtleAnimationController(_turtle);
 
@@ -45,7 +50,9 @@ namespace OOPPS.TowerBuild
 
             var floorManager = new FloorManager(_spawnController, floorContainer);
             var loopController = new GameLoopController(floorManager, _gameLoopView, _minigameConfig);
-            var gameEndObserver = new GameEndObserver(loopController, _resultView, moveCtrl);
+            var gameEndObserver = new GameEndObserver(loopController, _resultView, moveCtrl, _resourcesController, _dataPersistenceManager);
+
+            _buildingPersistence.Construct(_resourcesController);
 
             _container
                 .BindAll(moveCtrl)
