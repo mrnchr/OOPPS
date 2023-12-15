@@ -1,7 +1,7 @@
 ﻿using OOPPS.Core;
 using UnityEngine;
 
-namespace OOPPS
+namespace OOPPS.TowerBuild
 {
     public class TurtleMovementController : IUpdatable
     {
@@ -10,18 +10,38 @@ namespace OOPPS
         private readonly MoveButton _forward;
         private readonly TurtleConfig _config;
 
-        public TurtleMovementController(TurtleView turtle, MoveButton back, MoveButton forward, TurtleConfig config)
+        private Boarders _boarders;
+
+        private bool _canMove;
+
+        public TurtleMovementController(TurtleView turtle, MoveButton back, MoveButton forward, TurtleConfig config, Boarders boarders)
         {
+            EnableMovement();
             _turtle = turtle;
             _back = back;
             _forward = forward;
             _config = config;
+            _boarders = boarders;
+        }
+
+        public void EnableMovement()
+        {
+            _canMove = true;
+        }
+
+        public void DisableMovement()
+        {
+            _canMove = false;
         }
 
 
         public void Update()
         {
-            HandleMovement();
+            if (_canMove)
+            {
+                HandleMovement();
+            }
+
         }
 
         private void HandleMovement()
@@ -32,7 +52,21 @@ namespace OOPPS
             if (_forward.IsClickHold)
                 direction += 1;
 
-            _turtle.Rb.velocity = Vector3.right * (direction * _config.Speed);
+            _turtle.RotateModel(direction);
+
+            if (_boarders.IsFreeByLeft(_turtle.transform.position) && direction < 0 || _boarders.IsFreeByRight(_turtle.transform.position) && direction > 0)
+            {
+                _turtle.Rb.velocity = Vector3.right * (direction * _config.Speed);
+            }
+            else
+            {
+                _turtle.Rb.velocity = Vector3.right * 0;
+            }
+
+
+
+
+
         }
     }
 }
