@@ -1,5 +1,4 @@
 ﻿using System;
-using OOPPS.City.Fsm;
 
 namespace OOPPS.City.Building
 {
@@ -22,7 +21,7 @@ namespace OOPPS.City.Building
         public static void SetBuildTime(this BuildingModel obj)
         {   
             obj.StartBuildTime = DateTime.Now;
-            obj.EndBuildTime = obj.StartBuildTime.AddSeconds(obj.Config.BuildTime);
+            obj.EndBuildTime = obj.StartBuildTime.AddSeconds(obj.Config.BuildTime.Value.TotalSeconds);
         }
 
         public static void ResetEarnTime(this BuildingModel obj)

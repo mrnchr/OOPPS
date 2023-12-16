@@ -19,5 +19,7 @@ namespace OOPPS.Persistence
             Key = key;
             Value = value;
         }
+
+        public override string ToString() => $"{Key}: {Value}";
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OOPPS.City.Building;
+using OOPPS.Persistence;
 using UnityEngine;
 
 namespace OOPPS
@@ -8,17 +9,7 @@ namespace OOPPS
     {
         public BuildingType Type;
         public float BuildPrice;
-        public float Hours;
-        public float Minutes;
-        public float Seconds;
+        public SerializableTimeSpan BuildTime;
         public float Income;
-        
-        [Header("ReadOnly")]
-        public float BuildTime;
-
-        private void OnValidate()
-        {
-            BuildTime = Hours * 3600 + Minutes * 60 + Seconds;
-        }
     }
 }

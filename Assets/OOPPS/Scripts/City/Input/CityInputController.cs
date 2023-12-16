@@ -22,7 +22,7 @@ namespace OOPPS.City.InputSystem
         {
             Clear();
 
-            if (Input.touchCount > 0)
+            if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
             {
                 _data.Tap = true;
                 _data.TapData = Input.touches[0].position;

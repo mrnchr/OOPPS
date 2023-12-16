@@ -12,6 +12,7 @@ namespace OOPPS.Persistence
         private GameData _gameData;
         private IFileDataHandler _fileHandler;
         private IPathHandler _pathHandler;
+        private INewGameCreator _creator;
 
         private void Awake()
         {
@@ -19,6 +20,7 @@ namespace OOPPS.Persistence
             _dataPersistenceObjects = FindDataPersistenceObjects().ToList();
             _pathHandler = new PathHandler(_config);
             _fileHandler = new FileDataHandler(_pathHandler.GetFileName());
+            _creator = new NewGameCreator();
         }
 
         private void Start()
@@ -26,7 +28,7 @@ namespace OOPPS.Persistence
 #if UNITY_EDITOR
             _pathHandler.CreatePersistenceDirectory();
 #endif
-            StartCoroutine(DelayLoad());
+            Load();
         }
 
         private IEnumerator DelayLoad()
@@ -42,10 +44,11 @@ namespace OOPPS.Persistence
             if (!_fileHandler.Load(ref _gameData))
             {
                 Debug.Log("SAVE: New Game");
+                _creator.Create(_gameData);
                 _fileHandler.Save(_gameData);
             }
-            
-            
+
+
             _dataPersistenceObjects.ForEach(x => x.Load(_gameData));
         }
 

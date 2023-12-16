@@ -5,19 +5,31 @@ using UnityEngine;
 namespace OOPPS.Persistence
 {
     [Serializable]
-    public class SerializableDateTime : ISerializationCallbackReceiver
+    public struct SerializableDateTime : ISerializationCallbackReceiver
     {
         public DateTime Value;
-        public string SerializableData;
-        
+        public string SerializableValue;
+
+        public static implicit operator DateTime(SerializableDateTime obj) => obj.Value;
+        public static implicit operator SerializableDateTime(DateTime obj) => new SerializableDateTime { Value = obj };
+
         public void OnBeforeSerialize()
         {
-            SerializableData = Value.ToUniversalTime().ToString("O", CultureInfo.InvariantCulture);
+            SerializableValue = Value.ToUniversalTime().ToString("O", CultureInfo.InvariantCulture);
         }
 
         public void OnAfterDeserialize()
         {
-            Value = DateTime.ParseExact(SerializableData, "O", CultureInfo.InvariantCulture);
+            try
+            {
+                Value = DateTime.ParseExact(SerializableValue, "O", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                Value = default;
+            }
         }
+
+        public override string ToString() => Value.ToString(CultureInfo.InvariantCulture);
     }
 }
