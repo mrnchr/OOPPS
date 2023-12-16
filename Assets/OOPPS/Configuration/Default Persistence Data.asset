@@ -14,16 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FileName: persistence.json
   DirectoryName: Persistence
+  PersistenceInterval: 5
   DefaultGameData:
     Resources:
       _woods: 1000
       _coins: 1000
       _diamonds: 1
       _energy:
-        Value: 100
+        Value: 0
         StartResetTime:
-          SerializableData: 0001-01-01T00:00:00.0000000Z
+          SerializableValue: 0001-01-01T00:00:00.0000000Z
     Buildings:
       _pairs: []
-    StartEnergyResetTime:
-      SerializableData: 0001-01-01T00:00:00.0000000Z

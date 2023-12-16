@@ -1,6 +1,7 @@
 ﻿using System;
 using OOPPS.City;
 using OOPPS.City.Building;
+using OOPPS.Persistence.Serializables;
 
 namespace OOPPS.Persistence
 {

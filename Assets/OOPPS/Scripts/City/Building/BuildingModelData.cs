@@ -1,5 +1,6 @@
 ﻿using System;
 using OOPPS.Persistence;
+using OOPPS.Persistence.Serializables;
 
 namespace OOPPS.City.Building
 {

@@ -1,5 +1,6 @@
 ﻿using OOPPS.City.Building;
 using OOPPS.Persistence;
+using OOPPS.Persistence.Serializables;
 using UnityEngine;
 
 namespace OOPPS

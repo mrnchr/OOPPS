@@ -2,7 +2,7 @@
 using System.Globalization;
 using UnityEngine;
 
-namespace OOPPS.Persistence
+namespace OOPPS.Persistence.Serializables
 {
     [Serializable]
     public struct SerializableTimeSpan : ISerializationCallbackReceiver

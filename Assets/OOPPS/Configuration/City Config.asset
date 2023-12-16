@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c815818b59a645c48b3026347ecc543f, type: 3}
-  m_Name: Resources Config
+  m_Script: {fileID: 11500000, guid: a2619ffa3604476c8e2eee40677bc873, type: 3}
+  m_Name: City Config
   m_EditorClassIdentifier: 
-  MaxEnergy: 100
-  ResetEnergyTime:
-    SerializableValue: 00:00:10
-  ResetEnergyUnit: 10
+  EnergyToStart: 30

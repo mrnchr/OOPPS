@@ -15,6 +15,7 @@ namespace OOPPS.City.Boot
     {
         [SerializeField] private CityPersistence _cityPersistence;
         [SerializeField] private ResourcesConfig _resourcesConfig;
+        [SerializeField] private CityConfig _cityConfig;
         
         public override void InstallBindings()
         {
@@ -35,6 +36,9 @@ namespace OOPPS.City.Boot
             var city = new CityService(resources);
             var buildUpdater = new BuildUpdater(list);
 
+            var sceneLoader = new SceneLoader(persistence, runner);
+            var gameStarter = new GameStarter(_cityConfig, resourcesCtrl, sceneLoader);
+
 
             loader.Construct(resources, resourcesCtrl);
             _cityPersistence.Construct(list);
@@ -49,6 +53,8 @@ namespace OOPPS.City.Boot
                 .BindAll(resourcesCtrl)
                 .BindAll(city)
                 .BindAll(buildUpdater)
+                .BindAll(sceneLoader)
+                .BindAll(gameStarter)
                 .BindAll(loader)
                 .BindAll(updater)
                 .BindAll(runner);

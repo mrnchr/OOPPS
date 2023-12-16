@@ -12,6 +12,8 @@ namespace OOPPS.City
         private readonly ResourcesConfig _config;
         private readonly DataPersistenceManager _persistence;
 
+        public PlayingResources Resources => _resources;
+
         public ResourcesController(PlayingResources resources,
             ResourcesConfig config,
             DataPersistenceManager persistence)
@@ -21,17 +23,18 @@ namespace OOPPS.City
             _persistence = persistence;
         }
 
-        public void Add(float value)
+        public void AddEnergy(float value)
         {
             _resources.Energy.Value += value;
             _resources.Energy.Value = Mathf.Clamp(_resources.Energy.Value, 0, _config.MaxEnergy);
+            _persistence.Save();
         }
 
         public void OnLoad()
         {
             long delta = (DateTime.Now - _resources.Energy.StartResetTime).Ticks;
             long count = (int)(delta / _config.ResetEnergyTime.Value.Ticks);
-            Add(count * _config.ResetEnergyUnit);
+            AddEnergy(count * _config.ResetEnergyUnit);
             _resources.Energy.StartResetTime = DateTime.Now - new TimeSpan(delta);
         }
 
@@ -39,20 +42,20 @@ namespace OOPPS.City
         {
             if (ComeEnergyResetTime() && !IsFull())
             {
-                Add(_config.ResetEnergyUnit);
+                AddEnergy(_config.ResetEnergyUnit);
                 _resources.Energy.StartResetTime = DateTime.Now;
                 _persistence.Save();
             }
         }
 
-        public void Subtract(float value)
+        public void SubtractEnergy(float value)
         {
             if (value >= 1 && IsFull())
             {
                 _resources.Energy.StartResetTime = DateTime.Now;
             }
 
-            Add(-value);
+            AddEnergy(-value);
         }
 
         private bool IsFull() => Mathf.Approximately(_resources.Energy.Value, _config.MaxEnergy);
@@ -62,8 +65,10 @@ namespace OOPPS.City
 
     public interface IResourcesController
     {
-        public void Add(float value);
+        public PlayingResources Resources { get; }
+        
+        public void AddEnergy(float value);
         public void OnLoad();
-        public void Subtract(float value);
+        public void SubtractEnergy(float value);
     }
 }

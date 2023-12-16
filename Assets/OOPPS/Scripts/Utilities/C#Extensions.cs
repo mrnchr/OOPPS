@@ -4,7 +4,7 @@
     {
         public static string ToIntegerString(this float obj)
         {
-            return obj.ToString("####");
+            return obj.ToString("###0");
         }
     }
 }
