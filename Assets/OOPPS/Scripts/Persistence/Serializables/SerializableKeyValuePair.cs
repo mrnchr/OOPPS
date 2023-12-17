@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OOPPS.Persistence
+namespace OOPPS.Persistence.Serializables
 {
     [Serializable]
     public class SerializableKeyValuePair<TKey, TValue>
@@ -19,5 +19,7 @@ namespace OOPPS.Persistence
             Key = key;
             Value = value;
         }
+
+        public override string ToString() => $"{Key}: {Value}";
     }
 }

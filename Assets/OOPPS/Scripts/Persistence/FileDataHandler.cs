@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace OOPPS.Persistence
@@ -33,16 +34,16 @@ namespace OOPPS.Persistence
             return false;
         }
 
-        public void Save(GameData data)
+        public async Task SaveAsync(GameData data)
         {
             string rawData = JsonUtility.ToJson(data);
-            File.WriteAllTextAsync(_fileName, rawData);
+            await File.WriteAllTextAsync(_fileName, rawData);
         }
     }
 
     public interface IFileDataHandler
     {
         public bool Load(ref GameData data);
-        public void Save(GameData data);
+        public Task SaveAsync(GameData data);
     }
 }

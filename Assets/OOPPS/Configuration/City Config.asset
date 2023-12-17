@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f09181dbffa04369b79be0bf48e3a436, type: 3}
-  m_Name: Standard Building
+  m_Script: {fileID: 11500000, guid: a2619ffa3604476c8e2eee40677bc873, type: 3}
+  m_Name: City Config
   m_EditorClassIdentifier: 
-  Type: 0
-  BuildPrice: 100
-  BuildTime:
-    SerializableValue: 00:00:20
-  Income: 10
+  EnergyToStart: 30

@@ -14,10 +14,8 @@ namespace OOPPS.City.Boot
     public class CityInstaller : MonoInstaller
     {
         [SerializeField] private CityPersistence _cityPersistence;
-        [SerializeField] private ResourceView _woodView;
-        [SerializeField] private ResourceView _moneyView;
-        [SerializeField] private ResourceView _diamondView;
-        [SerializeField] private ResourceView _energyView;
+        [SerializeField] private ResourcesConfig _resourcesConfig;
+        [SerializeField] private CityConfig _cityConfig;
         
         public override void InstallBindings()
         {
@@ -34,12 +32,15 @@ namespace OOPPS.City.Boot
             var interactor = new Interactor(input, raycaster);
             
             var resources = new PlayingResources();
+            var resourcesCtrl = new ResourcesController(resources, _resourcesConfig, persistence);
             var city = new CityService(resources);
             var buildUpdater = new BuildUpdater(list);
 
-            var barCtrl = new ResourceBarController(_woodView, _moneyView, _diamondView, _energyView, resources);
+            var sceneLoader = new SceneLoader(persistence, runner);
+            var gameStarter = new GameStarter(_cityConfig, resourcesCtrl, sceneLoader);
 
-            loader.Construct(resources);
+
+            loader.Construct(resources, resourcesCtrl);
             _cityPersistence.Construct(list);
 
             _container
@@ -49,10 +50,12 @@ namespace OOPPS.City.Boot
                 .BindAll(raycaster)
                 .BindAll(interactor)
                 .BindAll(resources)
+                .BindAll(resourcesCtrl)
                 .BindAll(city)
                 .BindAll(buildUpdater)
+                .BindAll(sceneLoader)
+                .BindAll(gameStarter)
                 .BindAll(loader)
-                .BindAll(barCtrl)
                 .BindAll(updater)
                 .BindAll(runner);
         }

@@ -1,5 +1,6 @@
 ﻿using OOPPS.Core;
 using OOPPS.Core.Mvc;
+using OOPPS.Utilities;
 
 namespace OOPPS.City.UI.ResourceBar
 {
@@ -9,30 +10,24 @@ namespace OOPPS.City.UI.ResourceBar
         private readonly ResourceView _woods;
         private readonly ResourceView _money;
         private readonly ResourceView _diamonds;
-        private readonly ResourceView _energy;
-        private readonly PlayingResources _model;
+        private readonly PlayingResources _resources;
 
         public ResourceBarController(ResourceView woods,
             ResourceView money,
             ResourceView diamonds,
-            ResourceView energy,
-            PlayingResources model)
+            PlayingResources resources)
         {
             _woods = woods;
             _money = money;
             _diamonds = diamonds;
-            _energy = energy;
-            _model = model;
+            _resources = resources;
         }
 
         public void Update()
         {
-            _woods.SetText(ToFormattedString(_model.Woods));
-            _money.SetText(ToFormattedString(_model.Coins));
-            _diamonds.SetText(ToFormattedString(_model.Diamonds));
-            _energy.SetText(ToFormattedString(_model.Energy));
+            _woods.SetText(_resources.Woods.ToIntegerString());
+            _money.SetText(_resources.Coins.ToIntegerString());
+            _diamonds.SetText(_resources.Diamonds.ToIntegerString());
         }
-
-        private static string ToFormattedString(float number) => number.ToString("####");
     }
 }
