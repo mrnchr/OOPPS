@@ -17,7 +17,7 @@ MonoBehaviour:
   PersistenceInterval: 5
   DefaultGameData:
     Resources:
-      _woods: 1000
+      _woods: 50
       _coins: 1000
       _diamonds: 1
       _energy:

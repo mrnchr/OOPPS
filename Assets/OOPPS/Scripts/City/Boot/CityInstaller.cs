@@ -14,8 +14,7 @@ namespace OOPPS.City.Boot
     public class CityInstaller : MonoInstaller
     {
         [SerializeField] private CityPersistence _cityPersistence;
-        [SerializeField] private ResourcesConfig _resourcesConfig;
-        [SerializeField] private CityConfig _cityConfig;
+        [SerializeField] private ConfigurationProvider _provider;
         
         public override void InstallBindings()
         {
@@ -32,18 +31,18 @@ namespace OOPPS.City.Boot
             var interactor = new Interactor(input, raycaster);
             
             var resources = new PlayingResources();
-            var resourcesCtrl = new ResourcesController(resources, _resourcesConfig, persistence);
+            var resourcesCtrl = new ResourcesController(resources, _provider.Get<ResourcesConfig>(), persistence);
             var city = new CityService(resources);
             var buildUpdater = new BuildUpdater(list);
 
             var sceneLoader = new SceneLoader(persistence, runner);
-            var gameStarter = new GameStarter(_cityConfig, resourcesCtrl, sceneLoader);
-
+            var gameStarter = new GameStarter(_provider.Get<CityConfig>(), resourcesCtrl, sceneLoader);
 
             loader.Construct(resources, resourcesCtrl);
             _cityPersistence.Construct(list);
 
             _container
+                .BindAll(_provider)
                 .BindAll(list)
                 .BindAll(persistence)
                 .BindAll(input)

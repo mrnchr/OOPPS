@@ -60,10 +60,11 @@ namespace OOPPS.Persistence
         public async void SaveImmediatelyAsync()
         {
             State = SaveState.Save;
-            Debug.Log("SAVE: Start saving");
+            
             _dataPersistenceObjects.ForEach(x => x.Save(_gameData));
             await _fileHandler.SaveAsync(_gameData);
-            Debug.Log("SAVE: Finish saving");
+            Debug.Log("SAVE: Successful saving");
+            
             State = SaveState.None;
         }
 

@@ -1,4 +1,5 @@
 ﻿using OOPPS.City.Services;
+using OOPPS.City.UI.InfoField;
 using OOPPS.City.UI.ResourceBar;
 using OOPPS.City.UI.StartButton;
 using OOPPS.Core;
@@ -12,23 +13,28 @@ namespace OOPPS.City.Boot
         [SerializeField] private ResourceView _moneyView;
         [SerializeField] private ResourceView _diamondView;
         [SerializeField] private ResourceView _energyView;
-        [SerializeField] private ResourcesConfig _resourcesConfig;
         [SerializeField] private StartButtonView _startButton;
-        [SerializeField] private CityConfig _cityConfig;
+        [SerializeField] private InfoView _infoView;
         
         public override void InstallBindings()
         {
+            var city = _container.Resolve<ICityService>();
+            var runner = _container.Resolve<ICoroutineRunner>();
             var resources = _container.Resolve<PlayingResources>();
             var gameStarter = _container.Resolve<IGameStarter>();
+            var provider = _container.Resolve<IConfigurationProvider>();
             
             var barCtrl = new ResourceBarController(_woodView, _moneyView, _diamondView, resources);
-            var energyCtrl = new EnergyBarController(_energyView, resources, _resourcesConfig);
-            var startButtonCtrl = new StartButtonController(_startButton, gameStarter, resources, _cityConfig);
+            var energyCtrl = new EnergyBarController(_energyView, resources, provider.Get<ResourcesConfig>());
+            var startButtonCtrl = new StartButtonController(_startButton, gameStarter, resources, provider.Get<CityConfig>());
+
+            var infoCtrl = new InfoController(_infoView, city, runner, provider.Get<InfoFieldConfig>());
 
             _container
                 .BindAll(barCtrl)
                 .BindAll(energyCtrl)
-                .BindAll(startButtonCtrl);
+                .BindAll(startButtonCtrl)
+                .BindAll(infoCtrl);
         }
     }
 }

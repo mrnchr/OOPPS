@@ -1,4 +1,5 @@
-﻿using OOPPS.City.Building;
+﻿using System;
+using OOPPS.City.Building;
 
 namespace OOPPS.City.Services
 {
@@ -11,12 +12,18 @@ namespace OOPPS.City.Services
             _resources = resources;
         }
 
+        public event Action OnNotEnoughResources;
+
         public void Build(BuildingController building)
         {   
             if (_resources.Woods >= building.Model.Config.BuildPrice)
             {
                 _resources.Woods -= building.Model.Config.BuildPrice;
                 building.StartBuild();
+            }
+            else
+            {
+                OnNotEnoughResources?.Invoke();
             }
         }
 
