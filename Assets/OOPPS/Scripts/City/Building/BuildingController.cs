@@ -60,7 +60,8 @@ namespace OOPPS.City.Building
                     _view.SetPrice($"{_model.Config.BuildPrice:####}");
                     break;
                 case BuildingStage.Build:
-                    _view.SetTime((_model.EndBuildTime - DateTime.Now).ToTimeString());
+                    _view.SetTimeRatio((_model.EndBuildTime - DateTime.Now).Ticks /
+                        (float)(_model.EndBuildTime - _model.StartBuildTime).Ticks);
                     break;
                 case BuildingStage.Earn:
                     _view.SetMoney($"{_model.GetTotalSum():####}");

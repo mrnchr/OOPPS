@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using OOPPS.City.Fsm;
 using OOPPS.Core.Mvc;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace OOPPS.City.Building
 {
@@ -15,7 +15,7 @@ namespace OOPPS.City.Building
         [SerializeField] private BuildingInteraction _placeInteraction;
         [SerializeField] private BuildingInteraction _earnInteraction;
         [SerializeField] private TMP_Text _price;
-        [SerializeField] private TMP_Text _time;
+        [SerializeField] private Image _time;
         [SerializeField] private TMP_Text _money;
 
 #if UNITY_EDITOR
@@ -69,9 +69,9 @@ namespace OOPPS.City.Building
             _price.text = text;
         }
 
-        public void SetTime(string text)
+        public void SetTimeRatio(float value)
         {
-            _time.text = text;
+            _time.fillAmount = value;
         }
 
         public void SetMoney(string text)
