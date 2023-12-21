@@ -36,6 +36,7 @@ namespace OOPPS.City.Boot
             {
                 var machine = new BuildingStateMachine();
                 var instance = new BuildingController(view, machine, city, persistence);
+                machine.AddState(new EmptyBuildingState(BuildingStage.Empty, instance));
                 machine.AddState(new PlaceBuildingState(BuildingStage.Place, instance));
                 machine.AddState(new BuildBuildingState(BuildingStage.Build, instance));
                 machine.AddState(new EarnBuildingState(BuildingStage.Earn, instance));

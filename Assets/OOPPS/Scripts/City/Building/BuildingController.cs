@@ -4,7 +4,6 @@ using OOPPS.City.Services;
 using OOPPS.Core;
 using OOPPS.Core.Mvc;
 using OOPPS.Persistence;
-using UnityEngine;
 
 namespace OOPPS.City.Building
 {
@@ -45,7 +44,11 @@ namespace OOPPS.City.Building
 
         public void OnLoad()
         {
-            _machine.ChangeState(_model.BuildStage);
+            BuildingStage stage = _model.BuildStage;
+            if (stage == BuildingStage.Place)
+                stage = BuildingStage.Empty;
+            
+            _machine.ChangeState(stage);
         }
 
         public void Update()
@@ -64,6 +67,14 @@ namespace OOPPS.City.Building
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        public void SetBuildMode(bool active)
+        {
+            if (_model.BuildStage != BuildingStage.Place)
+                return;
+
+            _machine.ChangeState(active ? BuildingStage.Place : BuildingStage.Empty);
         }
 
         public void RequestBuild()
