@@ -1,6 +1,5 @@
-using UnityEngine;
 using System;
-using OOPPS;
+using OOPPS.Persistence;
 
 
 namespace OOPPS.TowerBuild
@@ -13,6 +12,7 @@ namespace OOPPS.TowerBuild
         private FloorManager _floorManager;
         private GameLoopView _gameLoopView;
         private BuildingMinigameConfig _minigameConfig;
+        private BuildingPersistence _buildingPersistence;
 
         public GameLoopController(FloorManager floorManager, GameLoopView gameLoopView, BuildingMinigameConfig minigameConfig)
         {

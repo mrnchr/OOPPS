@@ -717,6 +717,7 @@ MonoBehaviour:
   _hookComponent: {fileID: 795937364616316894}
   _boarders: {fileID: 5975924838153276434}
   _roofSize: 1
+  _meshRenderer: {fileID: 3569302471458748292}
 --- !u!145 &835682671353756016
 SpringJoint:
   m_ObjectHideFlags: 0
@@ -1215,6 +1216,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 4d599577db38a484c84a93ca66ed1cb8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: efe6d8ac6a9aa8541ac0be400ab15525, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 4d599577db38a484c84a93ca66ed1cb8, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 40aca51c7084dd348ba822ca00845475, type: 2}
     - target: {fileID: 919132149155446097, guid: 4d599577db38a484c84a93ca66ed1cb8, type: 3}
       propertyPath: m_Name
       value: City1House6
@@ -1224,5 +1233,10 @@ PrefabInstance:
 --- !u!4 &2432956945043754219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4d599577db38a484c84a93ca66ed1cb8, type: 3}
+  m_PrefabInstance: {fileID: 2758771491269667584}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3569302471458748292 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 4d599577db38a484c84a93ca66ed1cb8, type: 3}
   m_PrefabInstance: {fileID: 2758771491269667584}
   m_PrefabAsset: {fileID: 0}

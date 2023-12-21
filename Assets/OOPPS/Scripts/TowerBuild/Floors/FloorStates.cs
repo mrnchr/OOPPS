@@ -20,9 +20,10 @@ namespace OOPPS.TowerBuild
         private bool _isHooked;
         public bool IsHooked { get => _isHooked; set => _isHooked = value; }
 
+
         [SerializeField] private GameObject _boarders;
         [SerializeField] private float _roofSize;
-
+        [SerializeField] private MeshRenderer _meshRenderer;
 
         private SpringJoint _joint;
 
@@ -50,7 +51,7 @@ namespace OOPPS.TowerBuild
         private void DestroyObj()
         {
             Destroy(this.gameObject);
-           // this.gameObject.SetActive(false);
+            // this.gameObject.SetActive(false);
         }
 
         public void SetHookListener(Action<FloorStates> TryAddFloorEvent)
@@ -76,7 +77,7 @@ namespace OOPPS.TowerBuild
             {
                 _hook.SetActive(false);
             }
-        
+
         }
         private void DisableBoarders()
         {
@@ -91,6 +92,19 @@ namespace OOPPS.TowerBuild
             _joint.damper = 0f;
             _joint.autoConfigureConnectedAnchor = true;
         }
+
+        internal void SetMaterials(List<Material> materials)
+        {
+            if (_meshRenderer)
+            {
+                Material[] matArr = _meshRenderer.materials;
+
+                matArr[0] = materials[0];
+                matArr[1] = materials[1];
+                _meshRenderer.materials = matArr;
+            }
+        }
+
         public void ConnectNewJoint(Rigidbody newFloorRb)
         {
             _joint.connectedBody = newFloorRb;

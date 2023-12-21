@@ -1,13 +1,13 @@
 ﻿using OOPPS.Core;
 using System.Collections.Generic;
 using UnityEngine;
+using OOPPS.Persistence;
 
 namespace OOPPS.TowerBuild
 {
     public class TurtleInstaller : MonoInstaller
     {
         [Header("Movement")]
-        [SerializeField] private Updater _updater;
         [SerializeField] private TurtleView _turtle;
         [SerializeField] private MoveButton _back;
         [SerializeField] private MoveButton _forward;
@@ -32,10 +32,19 @@ namespace OOPPS.TowerBuild
 
         [Header("Other")]
         [SerializeField] private FloorStates _firstFloor;
+        [SerializeField] private BuildingPersistence _buildingPersistence;
 
 
         public override void InstallBindings()
         {
+            var persistence = FindAnyObjectByType<DataPersistenceManager>();
+            var updater = FindAnyObjectByType<Updater>();
+            var runner = FindAnyObjectByType<CoroutineRunner>();
+
+
+
+            var resourcesController = new BuildingResourcesController();
+
             var moveCtrl = new TurtleMovementController(_turtle, _back, _forward, _config, _boarders);
             var animCtrl = new TurtleAnimationController(_turtle);
 
@@ -45,17 +54,24 @@ namespace OOPPS.TowerBuild
 
             var floorManager = new FloorManager(_spawnController, floorContainer);
             var loopController = new GameLoopController(floorManager, _gameLoopView, _minigameConfig);
-            var gameEndObserver = new GameEndObserver(loopController, _resultView, moveCtrl);
+
+            var sceneLoader = new SceneLoader(persistence, runner);
+
+            var gameEndObserver = new GameEndObserver(loopController, _resultView, moveCtrl, resourcesController, persistence, sceneLoader);
+
+            _buildingPersistence.Construct(resourcesController);
 
             _container
                 .BindAll(moveCtrl)
+                .BindAll(runner)
+                .BindAll(sceneLoader)
                 .BindAll(animCtrl)
                 .BindAll(floorOffset)
                 .BindAll(floorContainer)
                 .BindAll(floorManager)
                 .BindAll(loopController)
                 .BindAll(gameEndObserver)
-                .BindAll(_updater);
+                .BindAll(updater);
         }
 
         public GameLoopController GetObjectLoopControler()
