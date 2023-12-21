@@ -29,12 +29,8 @@ namespace OOPPS.City.Services
 
         public void CollectMoney(BuildingController building)
         {
-            float money = building.Model.GetTotalSum();
-            if (money > 0)
-            {
-                _resources.Coins += money;
-                building.Model.ResetEarnTime();
-            }
+            _resources.Coins += building.Model.Config.Income;
+            building.Model.ResetEarnTime();
         }
     }
 }

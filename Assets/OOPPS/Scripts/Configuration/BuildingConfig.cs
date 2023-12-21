@@ -11,6 +11,7 @@ namespace OOPPS
         public BuildingType Type;
         public float BuildPrice;
         public SerializableTimeSpan BuildTime;
+        public SerializableTimeSpan IncomeTime;
         public float Income;
     }
 }

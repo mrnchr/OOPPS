@@ -16,4 +16,6 @@ MonoBehaviour:
   BuildPrice: 100
   BuildTime:
     SerializableValue: 00:00:20
+  IncomeTime:
+    SerializableValue: 00:00:10
   Income: 10

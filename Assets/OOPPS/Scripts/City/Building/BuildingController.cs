@@ -4,7 +4,6 @@ using OOPPS.City.Services;
 using OOPPS.Core;
 using OOPPS.Core.Mvc;
 using OOPPS.Persistence;
-using OOPPS.Utilities;
 
 namespace OOPPS.City.Building
 {
@@ -64,7 +63,7 @@ namespace OOPPS.City.Building
                         (float)(_model.EndBuildTime - _model.StartBuildTime).Ticks);
                     break;
                 case BuildingStage.Earn:
-                    _view.SetMoney($"{_model.GetTotalSum():####}");
+                    _view.SetMoney(_model.HasMoney());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

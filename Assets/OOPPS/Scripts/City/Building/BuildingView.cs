@@ -16,7 +16,7 @@ namespace OOPPS.City.Building
         [SerializeField] private BuildingInteraction _earnInteraction;
         [SerializeField] private TMP_Text _price;
         [SerializeField] private Image _time;
-        [SerializeField] private TMP_Text _money;
+        [SerializeField] private Image _money;
 
 #if UNITY_EDITOR
         [Header("Runtime")]
@@ -74,9 +74,9 @@ namespace OOPPS.City.Building
             _time.fillAmount = value;
         }
 
-        public void SetMoney(string text)
+        public void SetMoney(bool active)
         {
-            _money.text = text;
+            _money.gameObject.SetActive(active);
         }
 
         public void Hide()
