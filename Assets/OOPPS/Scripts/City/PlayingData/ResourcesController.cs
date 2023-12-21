@@ -30,6 +30,13 @@ namespace OOPPS.City
             _persistence.Save();
         }
 
+        public bool ComeEnergyResetTime() => GetTimeToReset() <= TimeSpan.Zero;
+
+        public TimeSpan GetTimeToReset() =>
+            _resources.Energy.StartResetTime.Value + _config.ResetEnergyTime - DateTime.Now;
+        
+        public bool IsFull() => Mathf.Approximately(_resources.Energy.Value, _config.MaxEnergy);
+
         public void OnLoad()
         {
             long delta = (DateTime.Now - _resources.Energy.StartResetTime).Ticks;
@@ -57,10 +64,6 @@ namespace OOPPS.City
 
             AddEnergy(-value);
         }
-
-        private bool IsFull() => Mathf.Approximately(_resources.Energy.Value, _config.MaxEnergy);
-
-        private bool ComeEnergyResetTime() => _resources.Energy.StartResetTime.Value + _config.ResetEnergyTime <= DateTime.Now;
     }
 
     public interface IResourcesController
@@ -68,6 +71,9 @@ namespace OOPPS.City
         public PlayingResources Resources { get; }
         
         public void AddEnergy(float value);
+        public bool ComeEnergyResetTime();
+        public TimeSpan GetTimeToReset();
+        public bool IsFull();
         public void OnLoad();
         public void SubtractEnergy(float value);
     }

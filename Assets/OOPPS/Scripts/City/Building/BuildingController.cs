@@ -4,6 +4,7 @@ using OOPPS.City.Services;
 using OOPPS.Core;
 using OOPPS.Core.Mvc;
 using OOPPS.Persistence;
+using OOPPS.Utilities;
 
 namespace OOPPS.City.Building
 {
@@ -59,7 +60,7 @@ namespace OOPPS.City.Building
                     _view.SetPrice($"{_model.Config.BuildPrice:####}");
                     break;
                 case BuildingStage.Build:
-                    _view.SetTime((_model.EndBuildTime - DateTime.Now).ToString(@"hh\:mm\:ss"));
+                    _view.SetTime((_model.EndBuildTime - DateTime.Now).ToTimeString());
                     break;
                 case BuildingStage.Earn:
                     _view.SetMoney($"{_model.GetTotalSum():####}");
