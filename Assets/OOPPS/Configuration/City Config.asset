@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2619ffa3604476c8e2eee40677bc873, type: 3}
   m_Name: City Config
   m_EditorClassIdentifier: 
-  EnergyToStart: 30
+  EnergyToStart: 10

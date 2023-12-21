@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxEnergy: 100
   ResetEnergyTime:
-    SerializableValue: 00:00:10
-  ResetEnergyUnit: 10
+    SerializableValue: 00:01:00
+  ResetEnergyUnit: 5

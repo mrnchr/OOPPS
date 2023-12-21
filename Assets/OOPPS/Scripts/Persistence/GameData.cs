@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OOPPS.City;
 using OOPPS.City.Building;
 using OOPPS.Persistence.Serializables;
@@ -9,7 +10,7 @@ namespace OOPPS.Persistence
     public class GameData
     {
         public PlayingResources Resources = new PlayingResources();
-        public SerializableDictionary<BuildingType, BuildingModelData> Buildings =
-            new SerializableDictionary<BuildingType, BuildingModelData>();
+        public List<BuildingModelData> Buildings =
+            new List<BuildingModelData>();
     }
 }

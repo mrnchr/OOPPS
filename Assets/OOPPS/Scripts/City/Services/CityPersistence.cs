@@ -16,22 +16,26 @@ namespace OOPPS.City.Services
 
         public void Load(GameData data)
         {
-            foreach (BuildingController ctrl in _controllers)
-            {
-                if (data.Buildings.TryGetValue(ctrl.Model.Config.Type, out BuildingModelData modelData))
-                    modelData.LoadModel(ctrl.Model);
+            if (data.Buildings.Count <= 0)
+                return;
 
-                ctrl.OnLoad();
+            for (int i = 0; i < data.Buildings.Count; i++)
+            {
+                BuildingModelData modelData = data.Buildings[i];
+                modelData.LoadModel(_controllers[i].Model);
+
+                _controllers[i].OnLoad();
             }
         }
 
         public void Save(GameData data)
         {
+            data.Buildings.Clear();
             foreach (BuildingController ctrl in _controllers)
             {
                 var modelData = new BuildingModelData();
                 modelData.SaveModel(ctrl.Model);
-                data.Buildings[ctrl.Model.Config.Type] = modelData;
+                data.Buildings.Add(modelData);  
             }
         }
     }

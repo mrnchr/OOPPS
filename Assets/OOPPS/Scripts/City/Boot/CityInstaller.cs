@@ -23,6 +23,7 @@ namespace OOPPS.City.Boot
             var runner = FindAnyObjectByType<CoroutineRunner>();
             var loader = FindAnyObjectByType<ResourcesLoader>();
             Camera mainCamera = Camera.main;
+            var cloud = FindAnyObjectByType<CloudTransitionsController>();
 
             var list = new List<BuildingController>();
             var input = new CityInputController(runner);
@@ -36,7 +37,7 @@ namespace OOPPS.City.Boot
             var buildUpdater = new BuildUpdater(list);
 
             var sceneLoader = new SceneLoader(persistence, runner);
-            var gameStarter = new GameStarter(_provider.Get<CityConfig>(), resourcesCtrl, sceneLoader);
+            var gameStarter = new GameStarter(_provider.Get<CityConfig>(), resourcesCtrl, sceneLoader, cloud);
 
             loader.Construct(resources, resourcesCtrl);
             _cityPersistence.Construct(list);
@@ -55,6 +56,7 @@ namespace OOPPS.City.Boot
                 .BindAll(sceneLoader)
                 .BindAll(gameStarter)
                 .BindAll(loader)
+                .BindAll(cloud)
                 .BindAll(updater)
                 .BindAll(runner);
         }

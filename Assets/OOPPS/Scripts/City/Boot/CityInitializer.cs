@@ -16,6 +16,7 @@ namespace OOPPS.City.Boot
         {
             CreateBuildingControllers();
             InitializeUpdater();
+            _container.Resolve<CloudTransitionsController>().HideClouds();
         }
 
         private void InitializeUpdater()

@@ -17,12 +17,11 @@ MonoBehaviour:
   PersistenceInterval: 5
   DefaultGameData:
     Resources:
-      _woods: 50
-      _coins: 1000
+      _woods: 100
+      _coins: 25
       _diamonds: 1
       _energy:
-        Value: 0
+        Value: 100
         StartResetTime:
           SerializableValue: 0001-01-01T00:00:00.0000000Z
-    Buildings:
-      _pairs: []
+    Buildings: []
