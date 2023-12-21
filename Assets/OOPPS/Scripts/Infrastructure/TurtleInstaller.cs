@@ -33,9 +33,10 @@ namespace OOPPS.TowerBuild
         [Header("Other")]
         [SerializeField] private FloorStates _firstFloor;
         [SerializeField] private BuildingPersistence _buildingPersistence;
+        [SerializeField] private CloudTransitionsController _cloudAnimator;
 
 
-        public override void InstallBindings()
+      public override void InstallBindings()
         {
             var persistence = FindAnyObjectByType<DataPersistenceManager>();
             var updater = FindAnyObjectByType<Updater>();
@@ -53,11 +54,11 @@ namespace OOPPS.TowerBuild
             var floorContainer = new FloorContainer(floorOffset, _firstFloor);
 
             var floorManager = new FloorManager(_spawnController, floorContainer);
-            var loopController = new GameLoopController(floorManager, _gameLoopView, _minigameConfig);
+            var loopController = new GameLoopController(floorManager, _gameLoopView, _minigameConfig, _cloudAnimator);
 
             var sceneLoader = new SceneLoader(persistence, runner);
 
-            var gameEndObserver = new GameEndObserver(loopController, _resultView, moveCtrl, resourcesController, persistence, sceneLoader);
+            var gameEndObserver = new GameEndObserver(loopController, _resultView, moveCtrl, resourcesController, persistence, sceneLoader, _cloudAnimator);
 
             _buildingPersistence.Construct(resourcesController);
 

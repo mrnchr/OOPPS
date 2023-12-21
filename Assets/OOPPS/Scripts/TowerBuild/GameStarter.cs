@@ -27,8 +27,12 @@ namespace OOPPS.TowerBuild
 
         private void Start()
         { 
-            installer.GetObjectLoopControler().InitGameScreen();
-            installer.GetObjectLoopControler().StartGame();          
+            installer.GetObjectLoopControler().InitGameScreen(); 
+        }
+
+        public void StartGame()
+        {
+            installer.GetObjectLoopControler().StartGame();
         }
     }
 }

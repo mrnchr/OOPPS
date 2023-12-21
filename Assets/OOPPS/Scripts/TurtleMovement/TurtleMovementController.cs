@@ -52,7 +52,7 @@ namespace OOPPS.TowerBuild
             if (_forward.IsClickHold)
                 direction += 1;
 
-            _turtle.RotateModel(direction);
+            //_turtle.RotateModel(direction);
 
             if (_boarders.IsFreeByLeft(_turtle.transform.position) && direction < 0 || _boarders.IsFreeByRight(_turtle.transform.position) && direction > 0)
             {

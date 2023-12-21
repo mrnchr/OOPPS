@@ -12,16 +12,16 @@ namespace OOPPS.TowerBuild
         private FloorManager _floorManager;
         private GameLoopView _gameLoopView;
         private BuildingMinigameConfig _minigameConfig;
-        private BuildingPersistence _buildingPersistence;
+        private CloudTransitionsController _cloudAnimator;
 
-        public GameLoopController(FloorManager floorManager, GameLoopView gameLoopView, BuildingMinigameConfig minigameConfig)
+        public GameLoopController(FloorManager floorManager, GameLoopView gameLoopView, BuildingMinigameConfig minigameConfig, CloudTransitionsController cloudAnimator)
         {
             _floorManager = floorManager;
             _gameLoopView = gameLoopView;
             _minigameConfig = minigameConfig;
 
             _crntHp = _minigameConfig.hpCount;
-
+            _cloudAnimator = cloudAnimator;
         }
 
 
@@ -49,10 +49,13 @@ namespace OOPPS.TowerBuild
             _gameLoopView.InitGameScreen(_minigameConfig.hpCount, _minigameConfig.maxFloorCount);
             _floorManager.InitFloorManager(_minigameConfig.maxFloorCount);
 
+            _cloudAnimator.HideClouds();
         }
 
         public void StartGame()
         {
+            _gameLoopView.HideBuffsPanel();
+            _gameLoopView.ShowGameScreen();
             _floorManager.StartBuilding();
         }
 

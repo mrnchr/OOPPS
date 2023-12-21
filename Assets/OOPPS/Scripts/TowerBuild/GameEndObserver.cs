@@ -14,8 +14,9 @@ namespace OOPPS.TowerBuild
         private BuildingResourcesController _resourcesController;
         private DataPersistenceManager _dataPersistenceManage;
         private SceneLoader _sceneLoader;
+        private CloudTransitionsController _cloudAnimator;
 
-        public GameEndObserver(GameLoopController gameLoopController, ResultView resultView, TurtleMovementController turtleMovement, BuildingResourcesController resourcesController, Persistence.DataPersistenceManager dataPersistenceManager, SceneLoader sceneLoader)
+        public GameEndObserver(GameLoopController gameLoopController, ResultView resultView, TurtleMovementController turtleMovement, BuildingResourcesController resourcesController, Persistence.DataPersistenceManager dataPersistenceManager, SceneLoader sceneLoader, CloudTransitionsController cloudAnimator)
         {
             _gameLoopController = gameLoopController;
             _resultView = resultView;
@@ -23,6 +24,7 @@ namespace OOPPS.TowerBuild
             _resourcesController = resourcesController;
             _dataPersistenceManage = dataPersistenceManager;
             _sceneLoader = sceneLoader;
+            _cloudAnimator = cloudAnimator;
         }
 
 
@@ -33,6 +35,7 @@ namespace OOPPS.TowerBuild
 
             OnGoToNextScene += GoToCityScene;
             _resultView.AddButtonListener(OnGoToNextScene);
+            _cloudAnimator.OnCloudShowEnded += GoToTheCityScene;
         }
 
         public void OnDisable()
@@ -42,8 +45,7 @@ namespace OOPPS.TowerBuild
 
             _resultView.RemoveButtonListener(OnGoToNextScene);
             OnGoToNextScene -= GoToCityScene;
-
-
+            _cloudAnimator.OnCloudShowEnded -= GoToTheCityScene;
         }
 
         private void OnGameEndActions(int floors, int maxFloors, int res)
@@ -55,7 +57,12 @@ namespace OOPPS.TowerBuild
 
         private void GoToCityScene()
         {
-            _sceneLoader.LoadScene("City");
+            _cloudAnimator.ShowClouds();
+        }
+
+        private void GoToTheCityScene()
+        {
+             _sceneLoader.LoadScene("City");
         }
     }
 }

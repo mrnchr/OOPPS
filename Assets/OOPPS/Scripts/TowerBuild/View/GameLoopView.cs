@@ -9,6 +9,7 @@ namespace OOPPS.TowerBuild
     public class GameLoopView : MonoBehaviour
     {
         [SerializeField] private GameObject _controllersPanel;
+        [SerializeField] private GameObject _buffsPanel;
 
         [SerializeField] private TextMeshProUGUI _floorCounterTxt;
         [SerializeField] private GameObject _floorViewObj;
@@ -26,7 +27,8 @@ namespace OOPPS.TowerBuild
             InitHpView(initHpCount);
             SetFloorCounter(0, allFloorCnt);
 
-            ShowGameScreen();
+            HideGameScreen();
+            ShowBuffsPanel();
         }
 
         private void InitHpView(int initHpCount)
@@ -36,6 +38,7 @@ namespace OOPPS.TowerBuild
                 _imagesList.Add(Instantiate(_hpImgPref, _hpImgContainer.transform));
             }
             SetHp(initHpCount);
+            ShowBuffsPanel();
         }
 
         internal void HideGameScreen()
@@ -52,7 +55,14 @@ namespace OOPPS.TowerBuild
             ShowControllers();
             ShowStatsView();
         }
-
+        internal void ShowBuffsPanel()
+        {
+            _buffsPanel.SetActive(true);
+        }
+        internal void HideBuffsPanel()
+        {
+            _buffsPanel.SetActive(false);
+        }
 
         private void ShowControllers()
         {
